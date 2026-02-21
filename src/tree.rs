@@ -4,6 +4,10 @@ use alloc::vec::Vec;
 
 #[cfg(feature = "std")]
 mod io;
+#[cfg(feature = "std")]
+mod read;
+#[cfg(feature = "std")]
+mod write;
 
 const EMPTY: u32 = 0;
 
