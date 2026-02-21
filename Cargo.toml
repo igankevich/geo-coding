@@ -11,6 +11,7 @@ keywords = ["location", "latitude", "longitude"]
 categories = ["encoding"]
 include = ["**/*.rs", "Cargo.toml", "README.md", "katex-header.html"]
 publish = true
+license = "MIT"
 
 [features]
 std = []

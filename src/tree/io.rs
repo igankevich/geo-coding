@@ -12,7 +12,7 @@ impl Tree2D<i64, String> {
     /// RGC is an internal format of this crate that uses columnar storage to compress the data.
     #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn write(&self, mut writer: impl std::io::Write) -> std::io::Result<()> {
-        use crate::Write;
+        use super::write::Write;
         writer.write_u32(self.nodes.len() as u32)?;
         writer.write_sign_magnitude(self.nodes.iter().map(|Node { location, .. }| location[0]))?;
         writer.write_sign_magnitude(self.nodes.iter().map(|Node { location, .. }| location[1]))?;
@@ -79,7 +79,7 @@ impl Tree2D<i64, String> {
     /// ```
     #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn read(mut reader: impl std::io::Read) -> std::io::Result<Self> {
-        use crate::Read;
+        use super::read::Read;
         let num_points = reader.read_u32()? as usize;
         let mut nodes = vec![Node::default(); num_points];
         let longitudes = reader.read_sign_magnitude(num_points)?;
