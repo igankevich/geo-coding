@@ -2,6 +2,7 @@
 name = "geo-coding-cli"
 version.workspace = true
 edition.workspace = true
+publish = false
 
 [dependencies]
 anyhow = "1.0.100"
