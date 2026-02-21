@@ -1,0 +1,32 @@
+[package]
+name = "geo-coding"
+version.workspace = true
+edition.workspace = true
+homepage = "https://github.com/igankevich/geo-coding"
+repository = "https://github.com/igankevich/geo-coding"
+documentation = "https://docs.rs/geo-coding"
+readme = "README.md"
+description = "Offline reverse geocoder that uses files derived from OSM data."
+keywords = ["location", "latitude", "longitude"]
+categories = ["encoding"]
+include = ["**/*.rs", "Cargo.toml", "README.md", "katex-header.html"]
+publish = true
+
+[features]
+std = []
+
+[dev-dependencies]
+arbitrary = { version = "1.4.2", features = ["derive"] }
+arbtest = "0.3.2"
+
+[workspace]
+members = [".", "cli"]
+default-members = [".", "cli"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs", "--html-in-header", "katex-header.html"]
+all-features = true
