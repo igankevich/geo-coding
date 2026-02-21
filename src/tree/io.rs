@@ -64,7 +64,19 @@ impl Tree2D<i64, String> {
 
     /// Reads a tree from the stream in RGC format.
     ///
+    /// # RGC format
+    ///
     /// RGC is an internal format of this crate that uses columnar storage to compress the data.
+    /// To obtain a file in such a format you can use CLI utility provided in the Git repo.
+    /// You can use any OSM-PBF file as an input.
+    ///
+    /// In the following script `europe-latest.osm.pbf` (32 GiB) is used as an input.
+    /// CLI utiliy extracts names from each node, compresses them, and produces `other.rgc.zst` and
+    /// `settlements.rgc.zst`. The total size of the resulting files is around 200 MiB.
+    ///
+    /// ```bash
+    /// cargo run --bin geo-coding-cli --release -- convert europe-latest.osm.pbf
+    /// ```
     #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn read(mut reader: impl std::io::Read) -> std::io::Result<Self> {
         use crate::Read;

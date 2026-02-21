@@ -19,6 +19,10 @@ struct Node<C, V> {
 pub type NamesTree = Tree2D<i64, String>;
 
 /// Two-dimensional tree that maps a location given by `[C; 2]` to a value `V`.
+///
+/// # References
+///
+/// - <https://en.wikipedia.org/wiki/K-d_tree>
 #[derive(Debug, PartialEq, Eq)]
 pub struct Tree2D<C, V> {
     nodes: Vec<Node<C, V>>,

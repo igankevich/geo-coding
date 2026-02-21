@@ -68,6 +68,10 @@ fn to_f64(location: &[i64; 2]) -> [f64; 2] {
 /// Both are in nanodegrees.
 ///
 /// The distance is computed by converting each point to surface normals.
+///
+/// # References
+///
+/// - <https://en.wikipedia.org/wiki/N-vector>
 pub fn earth_distance(a: &[i64; 2], b: &[i64; 2]) -> u64 {
     earth_distance_f64(&to_f64(a), &to_f64(b)) as u64
 }
