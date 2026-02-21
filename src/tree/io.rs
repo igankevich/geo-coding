@@ -7,6 +7,9 @@ use alloc::vec;
 use alloc::vec::Vec;
 
 impl Tree2D<i64, String> {
+    /// Writes the tree into a stream in RGC format.
+    ///
+    /// RGC is an internal format of this crate that uses columnar storage to compress the data.
     #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn write(&self, mut writer: impl std::io::Write) -> std::io::Result<()> {
         use crate::Write;
@@ -59,6 +62,9 @@ impl Tree2D<i64, String> {
         Ok(())
     }
 
+    /// Reads a tree from the stream in RGC format.
+    ///
+    /// RGC is an internal format of this crate that uses columnar storage to compress the data.
     #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn read(mut reader: impl std::io::Read) -> std::io::Result<Self> {
         use crate::Read;
