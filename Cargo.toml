@@ -17,3 +17,7 @@ default-members = [".", "cli"]
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs", "--html-in-header", "katex-header.html"]
+all-features = true

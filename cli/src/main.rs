@@ -99,7 +99,7 @@ fn main() -> anyhow::Result<()> {
         } => {
             let t = Instant::now();
             let file = fs::File::open(&file)?;
-            let mmap = unsafe { Mmap::map(&file)?  };
+            let mmap = unsafe { Mmap::map(&file)? };
             let file = zstd::Decoder::new(mmap.as_ref())?;
             let geocoder = Tree2D::<i64, String>::read(file)?;
             eprintln!("Open: {:?}", t.elapsed());

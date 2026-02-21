@@ -7,6 +7,7 @@ use alloc::vec;
 use alloc::vec::Vec;
 
 impl Tree2D<i64, String> {
+    #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn write(&self, mut writer: impl std::io::Write) -> std::io::Result<()> {
         use crate::Write;
         writer.write_u32(self.nodes.len() as u32)?;
@@ -58,6 +59,7 @@ impl Tree2D<i64, String> {
         Ok(())
     }
 
+    #[cfg_attr(docsrs, doc(cfg(feature = "std")))]
     pub fn read(mut reader: impl std::io::Read) -> std::io::Result<Self> {
         use crate::Read;
         let num_points = reader.read_u32()? as usize;

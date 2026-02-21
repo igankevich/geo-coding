@@ -62,24 +62,33 @@ fn to_f64(location: &[i64; 2]) -> [f64; 2] {
     [longitude, latitude]
 }
 
+/// Returns geographical distance between two points.
+///
+/// The first coordinate is longitude, the second coordinate is latitude.
+/// Both are in nanodegrees.
+///
+/// The distance is computed by converting each point to surface normals.
 pub fn earth_distance(a: &[i64; 2], b: &[i64; 2]) -> u64 {
     earth_distance_f64(&to_f64(a), &to_f64(b)) as u64
 }
 
-pub fn earth_distance_f64(a: &[f64; 2], b: &[f64; 2]) -> f64 {
+fn earth_distance_f64(a: &[f64; 2], b: &[f64; 2]) -> f64 {
     const R_AVG: f64 = (WGS_84_A + WGS_84_B) * 0.5;
     let n1 = to_normal_vector(a);
     let n2 = to_normal_vector(b);
     R_AVG * length(cross(n1, n2)).atan2(dot(n1, n2))
 }
 
+/// Returns maximum distance between two points computed along each axis individually,
+/// i.e. $ \mathrm{max}\left(\left|x_1 - x_0\right|, \left|y_1 - y_0\right|\right) $.
 pub fn orthogonal_distance(a: &[i64; 2], b: &[i64; 2]) -> u64 {
     let dx = a[0].abs_diff(b[0]);
     let dy = a[1].abs_diff(b[1]);
     dx.max(dy)
 }
 
-pub fn distance_squared(a: &[i64; 2], b: &[i64; 2]) -> u64 {
+/// Returns squared Euclidean distance between two points.
+pub fn euclidean_distance_squared(a: &[i64; 2], b: &[i64; 2]) -> u64 {
     let dx_squared = distance_squared_scalar(a[0], b[0]);
     let dy_squared = distance_squared_scalar(a[1], b[1]);
     dx_squared.saturating_add(dy_squared)

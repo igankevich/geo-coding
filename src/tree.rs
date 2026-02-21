@@ -96,6 +96,9 @@ impl<C: Ord + Copy + Default, V: Default> Tree2D<C, V> {
         }
     }
 
+    /// Returns up to `max_neighbours` nodes within `max_distance` that are closest to the `location`.
+    ///
+    /// The distance between nodes is computed using `calc_distance`.
     pub fn find_nearest<D>(
         &self,
         location: &[C; 2],
@@ -114,7 +117,6 @@ impl<C: Ord + Copy + Default, V: Default> Tree2D<C, V> {
         let Some(root) = self.nodes.first() else {
             return neighbours;
         };
-        neighbours.reserve(max_neighbours.min(self.nodes.len()));
         let mut queue = VecDeque::new();
         queue.push_back((0, root));
         while let Some((coord_index, node)) = queue.pop_front() {
@@ -160,14 +162,17 @@ impl<C: Ord + Copy + Default, V: Default> Tree2D<C, V> {
         neighbours
     }
 
+    /// Returns an iterator over nodes.
     pub fn iter(&self) -> impl Iterator<Item = (&[C; 2], &V)> {
         self.nodes.iter().map(|node| (&node.location, &node.value))
     }
 
+    /// Returns the number of nodes.
     pub fn len(&self) -> usize {
         self.nodes.len()
     }
 
+    /// Returns `true` if the tree is empty.
     pub fn is_empty(&self) -> bool {
         self.nodes.is_empty()
     }
@@ -176,7 +181,7 @@ impl<C: Ord + Copy + Default, V: Default> Tree2D<C, V> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::distance_squared;
+    use crate::euclidean_distance_squared;
     use alloc::vec;
 
     #[test]
@@ -188,7 +193,7 @@ mod tests {
             ([2, 0], ()),     //
             ([3, 0], ()),     //
         ]);
-        let neighbours = tree.find_nearest(&[5, 0], 25_u64, 1, distance_squared);
+        let neighbours = tree.find_nearest(&[5, 0], 25_u64, 1, euclidean_distance_squared);
         assert_eq!(vec![(4, &[3, 0], &())], neighbours);
     }
 }
